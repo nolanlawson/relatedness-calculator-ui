@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Relatedness Calculator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="./images/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="./images/apple-touch-icon-retina.png">
+  <link rel="stylesheet" href="./css/jquery-ui.css" type="text/css">
+  <link rel="stylesheet" href="./css/main.css" type="text/css">
+  <link rel="stylesheet" href="./css/mobile.css" type="text/css">
+  <link rel="stylesheet" href="./css/calculator.css" type="text/css">
+  <style>
+      /* hide canviz warning */
+      #debug_output {
+          display: none;
+      }
+  </style>
+</head>
+<body>
+<div id="logo" class="header" role="banner">
+  <a href="./">
+    <img src="images/banner.png" width="606" height="55" alt="Relatedness Calculator - Making sense of family ties"/>
+  </a>
+</div>
+<div id="sidebar" role="complementary">
+  <h1>Examples</h1>
+  <ul>
+    <li><a href="?q=Aunt&example=true">Aunt (25%)</a></li>
+    <li><a href="?q=Brother&example=true">Brother (50%)</a></li>
+    <li><a href="?q=Cousin&example=true">Cousin (12.5%)</a></li>
+    <li><a href="?q=Daughter&example=true">Daughter (50%)</a></li>
+    <li><a href="?q=Father&example=true">Father (50%)</a></li>
+    <li><a href="?q=Granddaughter&example=true">Granddaughter (25%)</a></li>
+    <li><a href="?q=Grandfather&example=true">Grandfather (25%)</a></li>
+    <li><a href="?q=Grandmother&example=true">Grandmother (25%)</a></li>
+    <li><a href="?q=Grandson&example=true">Grandson (25%)</a></li>
+    <li><a href="?q=Great-granddaughter&example=true">Great-granddaughter (12.5%)</a></li>
+    <li><a href="?q=Great-grandfather&example=true">Great-grandfather (12.5%)</a></li>
+    <li><a href="?q=Great-grandmother&example=true">Great-grandmother (12.5%)</a></li>
+    <li><a href="?q=Great-grandson&example=true">Great-grandson (12.5%)</a></li>
+    <li><a href="?q=Half-brother&example=true">Half-brother (25%)</a></li>
+    <li><a href="?q=Half-sister&example=true">Half-sister (25%)</a></li>
+    <li><a href="?q=Mother&example=true">Mother (50%)</a></li>
+    <li><a href="?q=Nephew&example=true">Nephew (25%)</a></li>
+    <li><a href="?q=Niece&example=true">Niece (25%)</a></li>
+    <li><a href="?q=Second%20Cousin&example=true">Second Cousin (3.12%)</a></li>
+    <li><a href="?q=Sister&example=true">Sister (50%)</a></li>
+    <li><a href="?q=Son&example=true">Son (50%)</a></li>
+    <li><a href="?q=Uncle&example=true">Uncle (25%)</a></li>
+  </ul>
+</div>
+
+<div id="page-body" role="main">
+  <h1>Welcome to the Relatedness Calculator</h1>
+  <div id="introductory-text">
+    <p>
+      Ever wondered how you're related to your
+      <a href="?q=half-cousin&example=true">half-cousin</a>?
+      How about your <a href="?q=great%20uncle&example=true">great uncle</a>?
+      And what is a
+      <a href="?q=second%20cousin%20twice%20removed&example=true">second cousin twice removed</a>, anyway?
+      Ask the <strong>relatedness calculator</strong>.
+    </p>
+    <p>Just enter the name of a relative in plain
+      English. For instance, you can type <strong>brother</strong>, <strong>mom's cousin</strong>, or even
+      <strong>grandpa's cousin's daughter</strong>.</p>
+  </div>
+  <div id="input-box-area" class="gray-box-background">
+    <div id="entry-form">
+      <h2>Enter relative:</h2><br/>
+      <form id="mainform" class="the-main-form" action="./" method="GET" style="display: flex;">
+        <input id="autosuggest-input" name="q" type="text" style="margin-right: 10px;">
+        <div id="formbox">
+          <input type="submit" value="Calculate"/>
+        </div>
+      </form>
+    </div>
+    <div id="result"></div>
+  </div>
+  <div id="spinner" class="spinner" style="display:none;" aria-label="Loading…"></div>
+  <div id="graph_container_outer">
+    <div id="graph_container"></div>
+  </div>
+  <div id="debug_output"></div>
+  <div id="explanation" style="display:none">
+    <div class="gray-box-background explanation-title">
+      <!-- initially used richui:font to generate the images -->
+      <img alt="Explanation" src="images/richui_font_explanation.png"/>
+    </div>
+    <p>
+      The relatedness between two people is expressed with two measures:
+    </p>
+    <ul>
+      <li><strong>Relatedness coefficient:</strong> what percentage of your
+        genes you share.
+      </li>
+      <li><strong>Degree of relation:</strong> how far you are from that person
+        in your family tree.
+      </li>
+    </ul>
+    <p id="explanation-paragraph"></p>
+    <p/>
+    <div class="gray-box-background explanation-title">
+      <img alt="Fun Facts" src="images/richui_font_funfacts.png"/>
+    </div>
+    <p>Did you know...</p>
+    <ul>
+      <li>The curious case of <a href="?q=double%20cousins&example=true">double cousins</a>
+        occurs when two siblings from one family each marry two siblings
+        from another family. Double cousins share 25% of their genes
+        &mdash; the same as grandparents/grandchildren and half-siblings.
+        No incest involved, but it's still kind of weird!
+      </li>
+      <li>Although it is illegal in many places, <a target="_blank"
+                                                    href='https://www.nytimes.com/2009/11/26/garden/26cousins.html'>over
+        10% of marriages worldwide</a> are between cousins. Famous
+        cousin-marriers include <a target="_blank"
+                                   href='https://en.wikipedia.org/wiki/Charles_Darwin'>Charles
+          Darwin</a>, <a target="_blank" href='https://en.wikipedia.org/wiki/Jerry_Lee_Lewis'>Jerry
+          Lee Lewis</a>, and <a target="_blank"
+                                href='https://www.imdb.com/title/tt0757018/quotes?qt0285958'>Shelbyville
+          Manhattan</a>.
+      </li>
+      <li>In terms of relatedness, you are just as likely to "take
+        after" your <a href="?q=uncle&example=true">uncle</a> (25%)
+        as your <a href="?q=grandfather&example=true">grandfather</a> (25%).
+      </li>
+      <li>"Once removed," "twice removed," etc. refers to the distance up or down
+        your family tree relative to a cousin. For instance, a "second cousin,
+        once removed" could be either your
+        <a href="?q=second cousin's child&example=true">second cousin's child</a>
+        or your <a href="?q=parent's second cousin&example=true">parent's second cousin</a>.
+      <li><a href="?q=fraternal twins&example=true">Fraternal twins</a>
+        have the same relatedness coefficient as
+        regular siblings (50%), but
+        <a href="?q=identical twins&example=true">identical twins</a> share 100% of their
+        genes. So you're as closely related to your
+        <a href="?q=identical twin's children&example=true">identical twin's
+          children</a> (50%) as to your own children (50%)!
+      </li>
+      <li>If there has been incest in your ancestry, you can
+        calculate your relatedness coefficient to other family members by
+        adding in any extra coefficients due to the incest. For instance,
+        if your parents are cousins, then your relatedness to your father
+        is 56.25%, because he's your <a
+          href="?q=father&example=true">father</a> (50%), as
+        well as your <a href="?q=mother's cousin&example=true">mother's cousin</a>
+        (6.25%).
+      <li>Despite what you may have seen on <a
+        href='https://en.wikipedia.org/wiki/Futurama' target="_blank">Futurama</a>, it is
+        not possible for <a
+          href='https://en.wikipedia.org/wiki/Fry_(Futurama)' target="_blank">Fry</a> to be
+        his own grandfather. He would need to share 125% of his genes with
+        himself.
+      </li>
+    </ul>
+    <div class="gray-box-background explanation-title">
+      <img alt="Nerdy Stuff" src="images/richui_font_nerdystuff.png"/>
+    </div>
+    <p>Richard Dawkins gives a great explanation of how to calculate
+      relatedness coefficients in <i>The
+        Selfish Gene</i>:</p>
+
+    <div id="quoted-text">
+
+      <p>First identify all the common ancestors of A and B. For
+        instance, the common ancestors of a pair of first cousins are their
+        shared grandfather and grandmother. Once you have found a common
+        ancestor, it is of course logically true that all his ancestors are
+        common to A and B as well. However, we ignore all but the most
+        recent common ancestors. In this sense, first cousins have only two
+        common ancestors. If B is a lineal descendant of A, for instance
+        his great grandson, then A himself is the ‘common ancestor’ we are
+        looking for.</p>
+      <p>Having located the common ancestor(s) of A and B, count the
+        generation distance as follows. Starting at A, climb up the family
+        tree until you hit a common ancestor, and then climb down again to
+        B. The total number of steps up the tree and then down again is the
+        generation distance. For instance, if A is B’s uncle, the
+        generation distance is 3. The common ancestor is A’s father (say)
+        and B’s grandfather. Starting at A you have to climb up one
+        generation in order to hit the common ancestor. Then to get down to
+        B you have to descend two generations on the other side. Therefore
+        the generation distance is 1 + 2 = 3.</p>
+      <p>Having found the generation distance between A and B via a
+        particular common ancestor, calculate that part of their
+        relatedness for which that ancestor is responsible. To do this,
+        multiply 1/2 by itself once for each step of the generation
+        distance. If the generation distance is 3, this means calculate 1/2
+        x 1/2 x 1/2 or (1/2)^3. If the generation distance via a particular
+        ancestor is equal to g steps, the portion of relatedness due to
+        that ancestor is (1/2)^g.</p>
+      <p>But this is only part of the relatedness between A and B. If
+        they have more than one common ancestor we have to add on the
+        equivalent figure for each ancestor. It is usually the case that
+        the generation distance is the same for all common ancestors of a
+        pair of individuals. Therefore, having worked out the relatedness
+        between A and B due to any one of the ancestors, all you have to do
+        in practice is to multiply by the number of ancestors. First
+        cousins, for instance, have two common ancestors, and the
+        generation distance via each one is 4. Therefore their relatedness
+        is 2 x (1/2)^4 = 1/8. If A is B’s great-grandchild, the generation
+        distance is 3 and the number of common ‘ancestors’ is 1 (B
+        himself), so the relatedness is 1 x (1/2)^3 = 1/8.</p>
+    </div>
+  </div>
+</div>
+<div class="footer" role="contentinfo">
+  Relatedness Calculator v1.2 developed by <a href="https://nolanlawson.com">Nolan Lawson</a>.
+  <p/>Graphs courtesy of <a target="_blank" href='https://www.graphviz.org/'>Graphviz</a> and
+  <a target="_blank" href='https://code.google.com/p/canviz/'>Canviz</a>.
+</div>
+<script src="./js/jquery-1.11.1.js"></script>
+<script src="./js/jquery-ui.js"></script>
+<script src="./js/canviz-concatenated.js"></script>
+<script src="./js/application.js"></script>
+<script>
+  if (location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') {
+    (function (f, a, t, h, o, m) {
+      a[h] = a[h] || function () {
+        (a[h].q = a[h].q || []).push(arguments)
+      };
+      o = f.createElement('script'),
+        m = f.getElementsByTagName('script')[0];
+      o.async = 1;
+      o.src = t;
+      o.id = 'fathom-script';
+      m.parentNode.insertBefore(o, m)
+    })(document, window, '//fathom.nolanlawson.com/tracker.js', 'fathom');
+    fathom('set', 'siteId', 'GSJBM');
+    fathom('trackPageview');
+  }
+</script>
+</body>
+</html>
