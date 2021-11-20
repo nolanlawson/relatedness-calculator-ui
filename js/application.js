@@ -68,6 +68,8 @@
           <br />`
 
         drawCanviz(result.graphWidth, result.graph);
+
+        document.title = result.cleanedQuery.substring(0, 1).toUpperCase() + result.cleanedQuery.substring(1) + ' - ' + document.title
       }
       resultDiv.html(html)
     }
