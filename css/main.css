@@ -71,7 +71,7 @@ body {
 }
 
 a:link, a:visited, a:hover {
-    color: #48802c !important;
+    color: #48802c;
 }
 
 a:hover, a:active {
