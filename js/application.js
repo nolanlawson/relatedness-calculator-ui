@@ -53,9 +53,8 @@
           <p>(Error: ${result.errorMessage})</p>`
         }
       } else { // didn't fail
-
         explanationParagraph.html(`
-            So, your <strong>${params.q.toLowerCase().trim()}</strong>
+            So, your <strong>${result.cleanedQuery}</strong>
             is <strong>${(result.coefficient * 100).toLocaleString(undefined, {minimumFractionDigits: 0})}%</strong> related to
             you
             and <strong>${result.degree}</strong> ${result.degree > 1 ? 'steps' : 'step'} removed from you in your family
