@@ -71,7 +71,7 @@ body {
 }
 
 a:link, a:visited, a:hover {
-    color: #48802c;
+    color: #48802c !important;
 }
 
 a:hover, a:active {
@@ -651,4 +651,9 @@ p {
 
 #introductory-text {
     margin-bottom: 2em;
+}
+
+/* hide canviz warning */
+#debug_output {
+    display: none;
 }
