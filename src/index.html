@@ -63,9 +63,9 @@
   </div>
   <div id="input-box-area" class="gray-box-background">
     <div id="entry-form">
-      <h2>Enter relative:</h2><br/>
-      <form id="mainform" class="the-main-form" action="./" method="GET" style="display: flex;">
-        <input id="autosuggest-input" name="q" type="text" style="margin-right: 10px;">
+      <h2 role="presentation" id="enter-relative">Enter relative:</h2><br/>
+      <form id="mainform" class="the-main-form" action="./" method="GET" style="display: flex;" aria-label="Enter relative">
+        <input id="autosuggest-input" name="q" type="text" style="margin-right: 10px;" aria-labelledby="enter-relative">
         <div id="formbox">
           <input type="submit" value="Calculate"/>
         </div>

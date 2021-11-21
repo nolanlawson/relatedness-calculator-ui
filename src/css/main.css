@@ -172,8 +172,8 @@ img {
     min-height: 1em;
 }
 
-.footer a {
-    color: #255b17;
+.footer a, .footer a:visited {
+    color: #333;
 }
 
 .spinner {
