@@ -1,0 +1,6 @@
+{
+  "compress": true,
+  "mangle": {
+    "reserved": ["$super"]
+  }
+}

@@ -1,2 +1,2 @@
 # relatedness-calculator-ui
-Fontend UI for the relatedness calculator
+Frontend UI for the relatedness calculator
