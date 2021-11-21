@@ -659,8 +659,11 @@ p {
 }
 
 @media screen and (max-width: 720px) {
-    p {
+    p, li {
         /* fix lighthouse warning about text too small */
-        font-size: 12px !important;
+        font-size: 14px !important;
+    }
+    p {
+        line-height: 1.4em !important;
     }
 }
