@@ -8,3 +8,5 @@ Frontend UI for the relatedness calculator.
 - [relatedness-calculator-serverless](https://github.com/nolanlawson/relatedness-calculator-serverless)
 - [relatedness-calculator-autosuggester-serverless](https://github.com/nolanlawson/relatedness-calculator-autosuggester-serverless)
 - [RelatednessCalculator](https://github.com/nolanlawson/RelatednessCalculator)
+
+Old UI: [RelatednessCalculatorInterface](https://github.com/nolanlawson/RelatednessCalculatorInterface)
