@@ -657,3 +657,10 @@ p {
 #debug_output {
     display: none;
 }
+
+@media screen and (max-width: 720px) {
+    p {
+        /* fix lighthouse warning about text too small */
+        font-size: 12px !important;
+    }
+}
