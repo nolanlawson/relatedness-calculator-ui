@@ -1,8 +1,8 @@
 "use strict";
 
 (function ($) {
-  var queryUrl = 'https://lblc7q3pm2.execute-api.us-west-2.amazonaws.com/RelatednessCalculator';
-  var autosuggestUrl = 'https://4j4856b684.execute-api.us-west-2.amazonaws.com/RelatednessCalculatorAutosuggester';
+  var queryUrl = 'https://relatednesscalculatorapi.nolanlawson.com/RelatednessCalculator';
+  var autosuggestUrl = 'https://relatednesscalculatorapi.nolanlawson.com/RelatednessCalculatorAutosuggester';
   var autosuggestInput = $("#autosuggest-input");
   var resultDiv = $('#result');
   var explanation = $('#explanation');
