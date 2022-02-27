@@ -9,8 +9,17 @@
   var spinner = $('#spinner');
   var explanationParagraph = $('#explanation-paragraph');
   var form = $('.the-main-form');
-  var params = Object.fromEntries(new URLSearchParams(location.search));
+  var params = deparam(new URLSearchParams(location.search));
   var result;
+
+  function deparam(str) {
+    var params = new URLSearchParams(str);
+    var res = {};
+    params.forEach(function (value, key) {
+      res[key] = value;
+    });
+    return res;
+  }
 
   function drawCanviz(actualGraphWidth, graph) {
     var canviz = new Canviz('graph_container'); // fudge factor of 40 for margins on both side (which should only be 8, but whatever)
