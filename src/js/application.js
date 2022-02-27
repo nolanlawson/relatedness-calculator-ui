@@ -9,7 +9,7 @@
   var spinner = $('#spinner');
   var explanationParagraph = $('#explanation-paragraph');
   var form = $('.the-main-form');
-  var params = deparam(new URLSearchParams(location.search));
+  var params = deparam(location.search);
   var result;
 
   function deparam(str) {
