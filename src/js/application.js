@@ -10,6 +10,8 @@
   var spinner = $('#spinner');
   var explanationParagraph = $('#explanation-paragraph');
   var form = $('.the-main-form');
+  var frownIcon = $('#frown-icon');
+  var infoIcon = $('#info-icon');
   var params = deparam(location.search);
   var result;
 
@@ -43,9 +45,8 @@
       var html = '';
 
       if (result.failed) {
-        introText.show();
         if (result.parseError) {
-          html += '<img alt="info" class="info-icon" src="images/get-info.png" width="32" height="32">';
+          html += '<img alt="info" class="info-icon" src="' + infoIcon.attr('href') + '" width="32" height="32">';
 
           if (result.parseError === 'Ambiguity') {
             html += "<p><strong>"
@@ -58,20 +59,19 @@
             html += '<p>You are not biologically related to <strong>in-laws</strong> and <strong>step-relations</strong>.</p>';
           }
         } else {
-          html += "<img alt=\"frowny face\" class=\"info-icon\" src=\"images/frown-icon.png\" width=\"32\" height=\"32\"/><p>Whoops! Nothing found for <strong> "
+          html += "<img alt=\"frowny face\" class=\"info-icon\" src=\"" + frownIcon.attr('href') + "\" width=\"32\" height=\"32\"/><p>Whoops! Nothing found for <strong> "
             .concat(params.q, "</strong>. Could you try re-phrasing it?</p><p>(Error: ")
             .concat(result.errorMessage, ")</p>");
         }
       } else {
         // didn't fail
-        introText.hide();
         explanationParagraph.html("So, your <strong>"
-          .concat(result.cleanedQuery, "</strong>is <strong>")
+          .concat(result.cleanedQuery, "</strong> is <strong>")
           .concat((result.coefficient * 100).toLocaleString(undefined, {
             minimumFractionDigits: 0
-          }), "%</strong> related toyouand <strong>")
+          }), "%</strong> related to you and <strong>")
           .concat(result.degree, "</strong> ")
-          .concat(result.degree > 1 ? 'steps' : 'step', " removed from you in your familytree.</strong>"));
+          .concat(result.degree > 1 ? 'steps' : 'step', " removed from you in your family tree.</strong>"));
         html += "<p>Result for <strong> "
           .concat(params.q, "</strong><br />Relatedness coefficient: <b>")
           .concat((result.coefficient * 100).toLocaleString(undefined, {
