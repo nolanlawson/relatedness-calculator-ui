@@ -4,6 +4,7 @@
   var queryUrl = 'https://relatednesscalculatorapi.nolanlawson.com/RelatednessCalculator';
   var autosuggestUrl = 'https://relatednesscalculatorapi.nolanlawson.com/RelatednessCalculatorAutosuggester';
   var autosuggestInput = $("#autosuggest-input");
+  var introText = $('#introductory-text');
   var resultDiv = $('#result');
   var explanation = $('#explanation');
   var spinner = $('#spinner');
@@ -42,6 +43,7 @@
       var html = '';
 
       if (result.failed) {
+        introText.show();
         if (result.parseError) {
           html += '<img alt="info" class="info-icon" src="images/get-info.png" width="32" height="32">';
 
@@ -62,6 +64,7 @@
         }
       } else {
         // didn't fail
+        introText.hide();
         explanationParagraph.html("So, your <strong>"
           .concat(result.cleanedQuery, "</strong>is <strong>")
           .concat((result.coefficient * 100).toLocaleString(undefined, {
