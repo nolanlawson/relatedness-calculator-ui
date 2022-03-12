@@ -88,6 +88,7 @@
 
 
   if (params.q) {
+    introText.hide();
     spinner.css({
       display: ''
     });
