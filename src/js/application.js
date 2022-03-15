@@ -1,8 +1,8 @@
 "use strict";
 
 (function ($) {
-  var queryUrl = '/api/calculate';
-  var autosuggestUrl = '/api/suggest';
+  var queryUrl = 'https://relatednesscalculatorapi.nolanlawson.com/RelatednessCalculator';
+  var autosuggestUrl = 'https://relatednesscalculatorapi.nolanlawson.com/RelatednessCalculatorAutosuggester';
   var autosuggestInput = $("#autosuggest-input");
   var introText = $('#introductory-text');
   var resultDiv = $('#result');
