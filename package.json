@@ -9,7 +9,7 @@
     "//": "Parcel moves all script/link/img references to an absolute path, doesn't work when hosted at a sub-path",
     "build:parcel": "parcel build ./src/index.html && replace '(href|src)=\"/' '$1=\"./' ./dist/index.html",
     "build:inline": "inline-assets --pattern .*.css ./dist/index.html ./dist/index.html && rimraf ./dist/*.css",
-    "build:middleware": "shx cp ./_middleware.js ./dist",
+    "build:middleware": "cp ./_middleware.js ./dist/_middleware.js",
     "dev": "parcel serve ./src/index.html"
   },
   "devDependencies": {
